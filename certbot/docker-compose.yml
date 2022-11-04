@@ -1,0 +1,28 @@
+version: "3.3"
+services:
+  nginx-certbot:
+    image: nginx:1.23.2
+    container_name: "certbot-nginx-cnt"
+    networks:
+      - net
+    ports:
+      - '80:80'
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+
+  certbot:
+    image: certbot/certbot
+    container_name: 'certbot'
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email <EMAIL> -d <DOMAIN> --agree-tos
+    depends_on:
+      - nginx-certbot
+
+networks:
+  net:
+    name: 'net'

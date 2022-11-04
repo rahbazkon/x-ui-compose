@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  nginx-certbot:
+    image: nginx:1.23.2
+    container_name: "upload-server-cnt"
+    networks:
+      - net
+    ports:
+      - '443:443'
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../certbot/certbot/conf:/etc/letsencrypt
+      - ../certbot/certbot/www:/var/www/certbot
+      - /var/www/<DOMAIN>/public:/var/www/<DOMAIN>/public
+
+networks:
+  net:
+    name: 'net'
