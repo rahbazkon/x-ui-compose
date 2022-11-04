@@ -1,10 +1,7 @@
 version: '3'
 services:
   add-bulk-user-x-ui:
-    build:
-      context: .
-      dockerfile: 'Dockerfile'
-    image: 'add-users-bulk-x-ui'
+    image: ghcr.io/rahbazkon/x-ui-add-users-bulk
     container_name: 'add-users-bulk-x-ui-cnt'
     network_mode: host
     env_file:
