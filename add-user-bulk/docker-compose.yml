@@ -1,0 +1,14 @@
+version: '3'
+services:
+  add-bulk-user-x-ui:
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    image: 'add-users-bulk-x-ui'
+    container_name: 'add-users-bulk-x-ui-cnt'
+    network_mode: host
+    env_file:
+      - .env
+    volumes:
+        - ./results:/app/results
+        - ./users-bulk.csv:/app/users-bulk.csv

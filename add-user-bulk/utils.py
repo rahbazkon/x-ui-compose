@@ -1,12 +1,12 @@
 import socket
-import contextlib
-import requests_toolbelt 
+import contextlib 
 import requests 
 import dotenv
 import os
 import json
 import uuid
-import urllib3
+import urllib
+import base64
 
 
 dotenv.load_dotenv()
@@ -62,18 +62,19 @@ def add_user(username, traffic, session_cookie):
     listen = ""
     port = get_port()
     protocol = 'vmess'
+    user_uuid = str(uuid.uuid4())
     settings = json.dumps({
         "clients": [
             {
-                "id": str(uuid.uuid4()),
+                "id": user_uuid,
                 "alterId": 0
             }
         ],
         "disableInsecureEncryption": True
     })
     stream_settings = json.dumps({
-        "network":"ws",
-        "security":"tls",
+        "network": "ws",
+        "security": "tls",
         "tlsSettings": {
             "serverName": domain,
             "certificates": [
@@ -113,18 +114,49 @@ def add_user(username, traffic, session_cookie):
         "sniffing": sniffing,
     }
 
-    headers={
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'Cookie': session_cookie
+    headers = {
+        'Accept': "application/json, text/plain, */*",
+        'Accept-Language': "en-US,en;q=0.9",
+        'Connection': "keep-alive",
+        'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8",
+        'Cookie': session_cookie,
+        'Origin': panel_url,
+        'Referer': f"{panel_url}/xui/inbounds",
+        'Sec-Fetch-Dest': "empty",
+        'Sec-Fetch-Mode': "cors",
+        'Sec-Fetch-Site': "same-origin",
+        'Sec-GPC': "1",
+        'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        'X-Requested-With': "XMLHttpRequest"
     }
 
     res = requests.post(
         f'{panel_url}/xui/inbound/add',
         headers=headers,
-        json=payload
+        data=urllib.parse.urlencode(payload)
     ) 
     
-    print(res)
+    result = json.loads(res.text)
 
+    if not result['success']:
+        return -1, result['msg']
 
+    return 1, user_uuid, port
 
+def generate_vmess(username, user_uuid, port):
+    template = {
+        'add': domain,
+        'aid': 0,
+        'host': '',
+        'id': user_uuid,
+        'net': 'ws',
+        'path': '/api',
+        'port': port,
+        'ps': f'{username}@{server_name}',
+        'scy': 'auto',
+        'tls': 'tls',
+        'type': 'none',
+        'v': '2'
+    }
+    vmess = 'vmess://' + base64.encodebytes(json.dumps(template).replace(' ', '').encode()).decode().replace('\n', '')
+    return vmess
