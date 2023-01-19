@@ -5,8 +5,6 @@ services:
     container_name: 'x-ui-nginx-x-ui-cnt'
     networks:
       - net
-    ports:
-      - "54321:54321"
     volumes:
       - ./db:/etc/x-ui/
       - ../certbot/certbot/conf:/root/cert/
@@ -14,8 +12,14 @@ services:
 
 
   nginx:
-    image: nginx:1.23.2
-    container_name: "certbot-nginx-nginx-cnt"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - USERNAME: <USERNAME>
+        - PASS: <PASSWORD>
+    image: x-ui-nginx-img
+    container_name: "x-ui-nginx-nginx-cnt"
     networks:
       - net
     ports:
@@ -23,6 +27,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./.htpasswd:/etc/nginx/.htpasswd
       - ../certbot/certbot/conf:/etc/letsencrypt
       - ../certbot/certbot/www:/var/www/certbot
     depends_on:
