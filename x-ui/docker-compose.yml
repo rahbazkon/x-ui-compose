@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   xui:
-    image: 'enwaiax/x-ui:latest'
+    image: 'ghcr.io/rahbazkon/x-ui:latest'
     container_name: 'x-ui-cnt'
     network_mode: host
     volumes:
