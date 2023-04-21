@@ -26,6 +26,7 @@ services:
       - net
     ports:
       - '443:443'
+      - '80:80'
     restart: unless-stopped
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
