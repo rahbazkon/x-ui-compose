@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  pingtunnelserver:
+    image: ghcr.io/rahbazkon/pingtunnel:v1.0.0
+    container_name: icmp-server
+    restart: always
+    network_mode: host
+    command: "./pingtunnel -type server -key ${KEY}"

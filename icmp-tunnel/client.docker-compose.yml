@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  pingtunnelclient:
+    image: ghcr.io/rahbazkon/pingtunnel:v1.0.0
+    container_name: icmp-client
+    restart: always
+    networks:
+      - net
+    command: "./pingtunnel -type client -l 0.0.0.0:1080 -s ${SERVER} -sock5 1 -key ${KEY}"
+
+
+networks:
+  net:
+    name: 'net'
