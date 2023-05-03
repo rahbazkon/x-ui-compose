@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  ntopng:
+    image: ntop/ntopng:latest
+    command: -i eth0
+    ports:
+      - "3000:3000"
+#    volumes:
+#      - ./ntopng.license:/etc/ntopng.license:ro
+    network_mode: host
