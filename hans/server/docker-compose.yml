@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  hans:
+    container_name: hans-server
+    image: petrich/hans
+    platform: linux/amd64
+    command: ["hans.sh", "-m", "1450", "-s", "10.71.71.0", "-p", PTUNNEL_PASS, "-f", "-r", "-u", "nobody", "-d", "hans"]
+    network_mode: host
+    privileged: true
+    restart: always
