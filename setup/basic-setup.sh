@@ -3,8 +3,6 @@
 # Basic Server Setup
 printf "Updating repositories and upgrading packages...\n"
 apt update
-apt upgrade -y
-apt autoremove -y
 apt install -y wget apt-transport-https ca-certificates curl software-properties-common git net-tools gnupg lsb-release
 
 printf "Installing docker\n"
