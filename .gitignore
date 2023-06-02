@@ -36,7 +36,6 @@ lerna-debug.log*
 
 **/tmp.json
 **/*.ipynb
-**/*test*
 **/*.csv
 
 .env
