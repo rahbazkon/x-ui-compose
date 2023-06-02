@@ -16,5 +16,3 @@ then
 else
   curl "$uptime_kuma_base_api_url?status=up&msg=$up_message&ping=$avg_ping_time"
 fi
-echo ""
-sleep $api_interval   # Add delay between iterations
