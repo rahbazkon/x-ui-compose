@@ -11,7 +11,7 @@ up_message="OK"
 
 while true
 do
-  avg_ping_time=$(./vmessping_amd64_linux -c $ping_count -i $ping_delay $vmess | grep "rtt min/avg/max" | awk -F '/' '{print $4}')
+  avg_ping_time=$(./bin/vmessping_amd64_linux -c $ping_count -i $ping_delay $vmess | grep "rtt min/avg/max" | awk -F '/' '{print $4}')
 
   if [ $avg_ping_time -eq 0 ]
   then
