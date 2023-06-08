@@ -4,7 +4,7 @@ vmess="$1"
 uptime_kuma_base_api_url="$2"
 ping_count=10
 ping_delay=5
-api_interval=900
+api_interval=600
 down_message="NotOK"
 up_message="OK"
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# */15 * * * * /root/x-ui-compose/uptime-kuma/cronvmesstest.sh >/dev/null 2>&1
+# */10 * * * * /root/x-ui-compose/uptime-kuma/cronvmesstest.sh >/dev/null 2>&1
 
 vmess="$1"
 uptime_kuma_base_api_url="$2"
