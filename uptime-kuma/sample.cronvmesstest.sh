@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# */10 * * * * /bin/bash $HOME/x-ui-compose/uptime-kuma/VMESS_NAME.cronvmesstest.sh > $HOME/x-ui-compose/uptime-kuma/VMESS_NAME.log 2>&1
+# */10 * * * * /bin/bash $HOME/x-ui-compose/uptime-kuma/VMESS_NAME.cronvmesstest.sh >> $HOME/x-ui-compose/uptime-kuma/VMESS_NAME.log 2>&1
 
 vmess="$1"
 uptime_kuma_base_api_url="$2"
