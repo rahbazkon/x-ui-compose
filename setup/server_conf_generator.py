@@ -34,24 +34,28 @@ else:
     print("Unhandled sniPattern")
     exit(1)
 
-server_conf = {
-    "name": input("Please enter a name for your server: "),
-    "url": input("Please enter the url of xui server ending with /qpcmck: "),
-    "username": input("Enter username of the xui: "),
-    "password": input("Enter password of the xui: "),
-    "httpAuth": input("Enter the basic token of the nginx in the: "),
-    "AcceptingNew": input("Accepting new (Y/N)?: ").lower() == 'y',
-    "org": input("Enter the org name: "),
-    "rowRemark": input("Enter name of the rowRemark in xui: "),
-    "clientPort": decoded_vmess_json['port'],
-    "domain": decoded_vmess_json['sni'],
-    "SNIPattern": sniPattern,
-    "traffic": input("Enter the default traffic (Recommended default is 20): "),
-    "tls": decoded_vmess_json['tls'] == 'tls',
-    "path": decoded_vmess_json['path'],
-    "note": "abr-ham-de",
-    "active": True
-}
+try:
+    server_conf = {
+        "name": input("Please enter a name for your server: "),
+        "url": input("Please enter the url of xui server ending with /qpcmck: "),
+        "username": input("Enter username of the xui: "),
+        "password": input("Enter password of the xui: "),
+        "httpAuth": input("Enter the basic token of the nginx in the: "),
+        "AcceptingNew": input("Accepting new (Y/N)?: ").lower() == 'y',
+        "org": input("Enter the org name: "),
+        "rowRemark": input("Enter name of the rowRemark in xui: "),
+        "clientPort": decoded_vmess_json['port'],
+        "domain": decoded_vmess_json['sni'],
+        "SNIPattern": sniPattern,
+        "traffic": int(input("Enter the default traffic (Recommended default is 20): ")),
+        "tls": decoded_vmess_json['tls'] == 'tls',
+        "path": decoded_vmess_json['path'],
+        "note": "abr-ham-de",
+        "active": True
+    }
+except:
+    print("Error in parsing the config")
+    exit(1)
 
 print("==========================")
 print(json.dumps(server_conf, indent=2))
