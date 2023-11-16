@@ -34,6 +34,8 @@ else:
     print("Unhandled sniPattern")
     exit(1)
 
+print(decoded_vmess_json)
+
 try:
     server_conf = {
         "name": input("Please enter a name for your server: "),
@@ -44,8 +46,8 @@ try:
         "AcceptingNew": input("Accepting new (Y/N)?: ").lower() == 'y',
         "org": input("Enter the org name: "),
         "rowRemark": input("Enter name of the rowRemark in xui: "),
-        "clientPort": decoded_vmess_json['port'],
-        "domain": decoded_vmess_json['sni'],
+        "clientPort": int(decoded_vmess_json['port']),
+        "domain": decoded_vmess_json['add'],
         "SNIPattern": sniPattern,
         "traffic": int(input("Enter the default traffic (Recommended default is 20): ")),
         "tls": decoded_vmess_json['tls'] == 'tls',
