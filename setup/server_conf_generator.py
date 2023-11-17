@@ -53,7 +53,7 @@ try:
         "tls": decoded_vmess_json['tls'] == 'tls',
         "path": decoded_vmess_json['path'],
         "note": "abr-ham-de",
-        "active": True
+        "isActive": True
     }
 except:
     print("Error in parsing the config")
